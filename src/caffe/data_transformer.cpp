@@ -127,11 +127,9 @@ void DataTransformer<Dtype>::Transform(const Datum& datum,
 }
 
 
-
-
 template<typename Dtype>
 void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img,
-                                       Dtype* transformed_data, Dtype* transformed_label) {
+                                       Blob<Dtype>* transformed_blob, Dtype* transformed_label) {
   const string& data = datum.data();
   const int datum_channels = datum.channels();
   const int datum_height = datum.height();
@@ -143,6 +141,8 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
   const bool has_mean_file = param_.has_mean_file();
   const bool has_uint8 = data.size() > 0;
   const bool has_mean_values = mean_values_.size() > 0;
+
+  Dtype* transformed_data = transformed_blob->mutable_cpu_data();
 
   CHECK_GT(datum_channels, 0);
   CHECK_GE(datum_height, crop_size);
@@ -234,9 +234,6 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
             transformed_label[top_index] = pixel_value / 127;
           }
         }
-
-
-
 
 
       }

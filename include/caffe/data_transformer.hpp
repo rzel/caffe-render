@@ -36,6 +36,8 @@ class DataTransformer {
    *    set_cpu_data() is used. See data_layer.cpp for an example.
    */
   void Transform(const Datum& datum, Blob<Dtype>* transformed_blob);
+  
+  void Transform(const Datum& datum, const cv::Mat& cv_img, Blob<Dtype>* transformed_blob, Dtype* transformed_label);
 
   /**
    * @brief Applies the transformation defined in the data layer's
@@ -139,6 +141,8 @@ class DataTransformer {
   virtual int Rand(int n);
 
   void Transform(const Datum& datum, Dtype* transformed_data);
+
+
   // Tranformation parameters
   TransformationParameter param_;
 
