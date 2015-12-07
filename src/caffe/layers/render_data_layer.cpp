@@ -174,7 +174,7 @@ void RenderDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
       {
         float tnum;
         fread(&tnum, sizeof(float), 1, fid);
-        datum->add_float_data(tnum);
+        datum.add_float_data(tnum);
       }
 
     fclose(fid);
