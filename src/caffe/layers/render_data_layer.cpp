@@ -101,6 +101,10 @@ void RenderDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
   label_shape[0] = top_shape[0];
   top[1]->Reshape(label_shape);
 
+  LOG(INFO) << "output label size: " << top[1]->num() << ","
+      << top[1]->channels() << "," << top[1]->height() << ","
+      << top[1]->width();
+
   for (int i = 0; i < this->PREFETCH_COUNT; ++i) {
     this->prefetch_[i].label_.Reshape(label_shape);
   }
@@ -154,6 +158,7 @@ void RenderDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
 
   // datum scales
   const int lines_size = lines_.size();
+  Datum datum;
   for (int item_id = 0; item_id < batch_size; ++item_id) {
     // get a blob
     timer.Start();
@@ -166,7 +171,6 @@ void RenderDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
     // Apply transformations (mirror, crop...) to the image
     int offset = batch->data_.offset(item_id);
     this->transformed_data_.set_cpu_data(prefetch_data + offset);
-    Datum datum;
     datum.set_channels(3); 
     datum.set_height(new_height);
     datum.set_width(new_width);
