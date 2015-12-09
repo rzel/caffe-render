@@ -10,6 +10,12 @@
 #include "caffe/util/math_functions.hpp"
 #include "caffe/util/rng.hpp"
 
+
+#include <cv.h>
+#include <highgui.h>
+#include <cxcore.h>
+using namespace cv;
+
 namespace caffe {
 
 template<typename Dtype>
@@ -126,6 +132,7 @@ void DataTransformer<Dtype>::Transform(const Datum& datum,
   }
 }
 
+//#ifdef USE_OPENCV
 
 template<typename Dtype>
 void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img,
@@ -186,6 +193,11 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
 
   Dtype datum_element;
   int top_index, data_index;
+
+  // vis inputs 2
+  //Mat imgIn1(Size(width,height),CV_8UC3);
+  //Mat imgIn2(Size(width,height),CV_8UC3);
+
   for (int c = 0; c < datum_channels; ++c) {
     for (int h = 0; h < height; ++h) {
       for (int w = 0; w < width; ++w) {
@@ -207,6 +219,20 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
         {
           datum_element = 255 - datum_element;
         }
+        // label
+        Dtype pixel_value = static_cast<Dtype>(static_cast<uint8_t>(cv_img.at<cv::Vec3b>(h + h_off, w + w_off)[c]));
+
+
+        /*if (do_mirror)
+        {
+            imgIn1.at<cv::Vec3b>(h, width - 1 - w)[2 - c] = datum_element;
+            imgIn2.at<cv::Vec3b>(h, width - 1 - w)[c] = pixel_value;
+        }
+        else
+        {
+            imgIn1.at<cv::Vec3b>(h, w)[2 - c] = datum_element;
+            imgIn2.at<cv::Vec3b>(h, w)[c] = pixel_value;
+        }*/
 
         if (has_mean_file) {
           transformed_data[top_index] =
@@ -219,9 +245,6 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
             transformed_data[top_index] = datum_element * scale;
           }
         }
-
-        // label
-        Dtype pixel_value = static_cast<Dtype>(static_cast<uint8_t>(cv_img.at<cv::Vec3b>(h + h_off, w + w_off)[c]));
 
         if (has_mean_file) {
           transformed_label[top_index] =
@@ -239,7 +262,13 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
       }
     }
   }
+
+  //imwrite("/home/dragon123/GAN_render/saveimgs/temp1.jpg",imgIn1);
+  //imwrite("/home/dragon123/GAN_render/saveimgs/temp2.jpg",imgIn2);
+
+
 }
+//#endif
 
 
 

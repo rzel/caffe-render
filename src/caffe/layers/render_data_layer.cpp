@@ -15,6 +15,12 @@
 #include "caffe/util/math_functions.hpp"
 #include "caffe/util/rng.hpp"
 
+
+#include <cv.h>
+#include <highgui.h>
+#include <cxcore.h>
+using namespace cv;
+
 namespace caffe {
 
 template <typename Dtype>
@@ -169,15 +175,20 @@ void RenderDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
 
     string normalfile = root_folder + lines_[lines_id_].first;
     FILE * fid = fopen(normalfile.c_str(), "rb");
+    // vis inputs 1
+    //Mat imgIn(Size(new_width,new_height),CV_8UC3);
+
     for (int c = 0; c < 3; ++c) for (int h = 0; h < new_height; ++h)
       for (int w = 0; w < new_width; ++w)
       {
         float tnum;
         fread(&tnum, sizeof(float), 1, fid);
         datum.add_float_data(tnum);
+        //imgIn.at<cv::Vec3b>(h, w)[2 - c] = tnum;
       }
 
-    fclose(fid);
+    //fclose(fid);
+    //imwrite("/home/dragon123/GAN_render/saveimgs/temp.jpg",imgIn);
 
     this->data_transformer_->Transform(datum, cv_img, &(this->transformed_data_), prefetch_label + offset);
     trans_time += timer.MicroSeconds();
