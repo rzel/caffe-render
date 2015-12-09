@@ -35,7 +35,7 @@ def interp_surgery(net, layers):
 
 # init
 caffe.set_mode_gpu()
-caffe.set_device(0)
+caffe.set_device(1)
 
 # caffe.set_mode_cpu()
 
@@ -53,7 +53,7 @@ f = open('log.txt', 'w')
 for it in range(niter): 
     solver.step(1)
     train_loss[it] = solver.net.blobs['loss'].data
-    f.write('{0: f}'.format(train_loss[it]))
+    f.write('{0: f}\n'.format(train_loss[it]))
 
 f.close()
 

@@ -1,5 +1,5 @@
-net: "/home/dragon123/GAN_render/caffe-render/render_scripts/deconv_small/train.prototxt"
-display: 1
+net: "train.prototxt"
+display: 5
 average_loss: 20
 lr_policy: "fixed"
 # lr for unnormalized softmax -- see train_val definition
@@ -11,7 +11,7 @@ iter_size: 1
 max_iter: 80000
 weight_decay: 0.0005
 snapshot: 5000
-snapshot_prefix: "train"
+snapshot_prefix: "/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd/train"
 # solver_mode: CPU
 
 

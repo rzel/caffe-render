@@ -14,8 +14,8 @@ layer {
     mirror: true
   }
   image_data_param {
-    root_folder: "/home/dragon123/GAN_render/data/"
-    source: "/home/dragon123/GAN_render/data/trainlist_small.txt"
+    root_folder: "/nfs.yoda/xiaolonw/gan_render/data/"
+    source: "/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist.txt"
     batch_size: 128
     new_height: 72
     new_width: 72
