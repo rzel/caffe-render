@@ -11,10 +11,10 @@
 #include "caffe/util/rng.hpp"
 
 
-#include <cv.h>
-#include <highgui.h>
-#include <cxcore.h>
-using namespace cv;
+//#include <cv.h>
+//#include <highgui.h>
+//#include <cxcore.h>
+//using namespace cv;
 
 namespace caffe {
 
@@ -185,6 +185,8 @@ void DataTransformer<Dtype>::Transform(const Datum& datum, const cv::Mat& cv_img
     if (phase_ == TRAIN) {
       h_off = Rand(datum_height - crop_size + 1);
       w_off = Rand(datum_width - crop_size + 1);
+      // h_off = (datum_height - crop_size) / 2;
+      // w_off = (datum_width - crop_size) / 2;
     } else {
       h_off = (datum_height - crop_size) / 2;
       w_off = (datum_width - crop_size) / 2;

@@ -16,10 +16,10 @@
 #include "caffe/util/rng.hpp"
 
 
-#include <cv.h>
-#include <highgui.h>
-#include <cxcore.h>
-using namespace cv;
+// #include <cv.h>
+// #include <highgui.h>
+// #include <cxcore.h>
+// using namespace cv;
 
 namespace caffe {
 
