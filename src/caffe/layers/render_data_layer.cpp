@@ -191,7 +191,7 @@ void RenderDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
         //imgIn.at<cv::Vec3b>(h, w)[2 - c] = tnum;
       }
 
-    //fclose(fid);
+    fclose(fid);
     //imwrite("/home/dragon123/GAN_render/saveimgs/temp.jpg",imgIn);
 
     this->data_transformer_->Transform(datum, cv_img, &(this->transformed_data_), prefetch_label + offset);
