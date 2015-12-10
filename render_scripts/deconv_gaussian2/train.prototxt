@@ -45,7 +45,7 @@ layer {
     pad: 2
     weight_filler {
       type: "gaussian"
-      std: 0.05  # sqrt(2 / (32 * 5 * 5))
+      std: 0.01  # sqrt(2 / (32 * 5 * 5))
     }
     bias_filler {
       type: "constant"
@@ -79,7 +79,7 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "gaussian"
-      std: 0.0354  # sqrt(2 / (64 * 5 * 5))
+      std: 0.01  # sqrt(2 / (64 * 5 * 5))
     }
     bias_filler {
       type: "constant"
@@ -112,7 +112,7 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.0417 # sqrt(2 / (128 * 3 * 3))
+      std: 0.01 # sqrt(2 / (128 * 3 * 3))
     }
     bias_filler {
       type: "constant"
@@ -145,7 +145,7 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.0295 # sqrt(2 / (256 * 3 * 3))
+      std: 0.01 # sqrt(2 / (256 * 3 * 3))
     }
     bias_filler {
       type: "constant"
@@ -201,7 +201,7 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.0295  # sqrt(2 / (256 * 3 * 3))
+      std: 0.01  # sqrt(2 / (256 * 3 * 3))
     }
     bias_filler {
       type: "constant"
@@ -257,7 +257,7 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.0417 # sqrt(2 / (128 * 3 * 3))
+      std: 0.01 # sqrt(2 / (128 * 3 * 3))
     }
     bias_filler {
       type: "constant"
@@ -295,7 +295,7 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.0589 # sqrt(2 / (64 * 3 * 3))
+      std: 0.01 # sqrt(2 / (64 * 3 * 3))
     }
     bias_filler {
       type: "constant"
@@ -354,7 +354,7 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "gaussian"
-      std: 0.0500  # sqrt(2 / (32 * 5 * 5))
+      std: 0.01  # sqrt(2 / (32 * 5 * 5))
     }
     bias_filler {
       type: "constant"
