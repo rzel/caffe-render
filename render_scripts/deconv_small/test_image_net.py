@@ -31,8 +31,8 @@ chan  = 3
 
 for i in range(1):
 	out = net.forward()
-	transformer = caffe.io.Transformer({'conv9': out['conv9'].shape})
-	transformer.set_transpose('conv9', (1,2,0))
+	# transformer = caffe.io.Transformer({'conv9': out['conv9'].shape})
+	# transformer.set_transpose('conv9', (1,2,0))
 	for j in range(batch_size):
 		id = j
 		if id >= data_counts:
@@ -40,7 +40,11 @@ for i in range(1):
 		lbl = test_list[id].split(' ')[1]
 		fname = test_list[id].split(' ')[0]
 		
-		img = transformer.preprocess('conv9', out['conv9'][j])
+		timg = out['conv9'][j]
+		img = np.zeros((height, width, chan)) 
+		img[:,:,0] = timg[0,:]
+		img[:,:,1] = timg[1,:]
+		img[:,:,2] = timg[2,:]
 		img = img * 127 + 104
 		img = np.uint8(img)
 
