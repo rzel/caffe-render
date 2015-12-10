@@ -31,7 +31,7 @@ chan  = 3
 
 for i in range(1):
 	out = net.forward()
-	transformer = caffe.io.Transformer({'conv9': out['conv9'][0].shape})
+	transformer = caffe.io.Transformer({'conv9': out['conv9'].shape})
 	transformer.set_transpose('conv9', (1,2,0))
 	for j in range(batch_size):
 		id = j
