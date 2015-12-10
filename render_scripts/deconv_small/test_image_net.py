@@ -13,10 +13,11 @@ result_folder = '/nfs.yoda/xiaolonw/gan_render/results/'
 caffe.set_device(0)
 caffe.set_mode_gpu()
 net = caffe.Net('/nfs/hn46/xiaolonw/render_cnncode/caffe-render/render_scripts/deconv_small/test.prototxt',
-                '/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd/train_iter_25000.caffemodel',
+                '/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd/train_iter_30000.caffemodel',
                 caffe.TEST)
 
 
+#'/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd_gaussian2/train_iter_5000.caffemodel',
 test_list = np.loadtxt(test_listfile,  str, comments=None, delimiter='\n')
 data_counts = len(test_list)
 batch_size = net.blobs['data'].data.shape[0]
