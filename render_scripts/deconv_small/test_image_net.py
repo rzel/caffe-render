@@ -31,6 +31,8 @@ chan  = 3
 
 for i in range(1):
 	out = net.forward()
+	transformer = caffe.io.Transformer({'conv9': out['conv9'].shape})
+	transformer.set_transpose('conv9', (0,2,3,1))
 	for j in range(batch_size):
 		id = j
 		if id >= data_counts:
