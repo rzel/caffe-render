@@ -42,9 +42,9 @@ for i in range(1):
 		
 		timg = out['conv9'][j]
 		img = np.zeros((height, width, chan)) 
-		img[:,:,0] = timg[0,:]
+		img[:,:,0] = timg[2,:]
 		img[:,:,1] = timg[1,:]
-		img[:,:,2] = timg[2,:]
+		img[:,:,2] = timg[0,:]
 		img = img * 127 + 104
 		img = np.uint8(img)
 
