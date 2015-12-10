@@ -1,0 +1,417 @@
+name: "CaffeNet"
+layer {
+  name: "data"
+  type: "RenderData"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+# mean pixel / channel-wise mean instead of mean image
+  transform_param {
+    crop_size: 72
+    mean_value: 104
+    mirror: true
+  }
+  image_data_param {
+    # root_folder: "/nfs.yoda/xiaolonw/gan_render/data/"
+    root_folder: "/scratch/xiaolonw/render_data/"
+    source: "/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist.txt"
+    batch_size: 128
+    new_height: 72
+    new_width: 72
+    crop_size: 72
+    shuffle: true
+
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 5
+    stride: 1
+    pad: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.01  # sqrt(2 / (32 * 5 * 5))
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 2
+    stride: 2
+    kernel_size: 5
+    weight_filler {
+      type: "gaussian"
+      std: 0.01  # sqrt(2 / (64 * 5 * 5))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "conv2"
+  top: "conv3"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.01 # sqrt(2 / (128 * 3 * 3))
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.01 # sqrt(2 / (256 * 3 * 3))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv4"
+  top: "pool4"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm4"
+  type: "LRN"
+  bottom: "pool4"
+  top: "norm4"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+
+layer {
+  name: "conv5"
+  type: "Convolution"
+  bottom: "norm4"
+  top: "conv5"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.01  # sqrt(2 / (256 * 3 * 3))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu5"
+  type: "PReLU"
+  bottom: "conv5"
+  top: "conv5"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+
+layer {
+  name: "upsample5"
+  type: "Deconvolution"
+  bottom: "conv5"
+  top: "upsample5"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    bias_term: false
+    kernel_size: 4
+    stride: 2
+  }
+}
+
+
+layer {
+  name: "conv6"
+  type: "Convolution"
+  bottom: "upsample5"
+  top: "conv6"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    # pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.01 # sqrt(2 / (128 * 3 * 3))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu6"
+  type: "PReLU"
+  bottom: "conv6"
+  top: "conv6"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+
+layer {
+  name: "conv7"
+  type: "Convolution"
+  bottom: "conv6"
+  top: "conv7"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.01 # sqrt(2 / (64 * 3 * 3))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu7"
+  type: "PReLU"
+  bottom: "conv7"
+  top: "conv7"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+
+
+
+layer {
+  name: "upsample7"
+  type: "Deconvolution"
+  bottom: "conv7"
+  top: "upsample7"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    bias_term: false
+    kernel_size: 4
+    stride: 2
+  }
+}
+
+
+layer {
+  name: "conv8"
+  type: "Convolution"
+  bottom: "upsample7"
+  top: "conv8"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    pad: 1  # 2
+    stride: 1
+    kernel_size: 5
+    weight_filler {
+      type: "gaussian"
+      std: 0.01  # sqrt(2 / (32 * 5 * 5))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu8"
+  type: "PReLU"
+  bottom: "conv8"
+  top: "conv8"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+
+
+
+layer {
+  name: "conv9"
+  type: "Convolution"
+  bottom: "conv8"
+  top: "conv9"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }     
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 3
+    pad: 2
+    stride: 1
+    kernel_size: 5
+    weight_filler {
+      type: "gaussian"
+      std: 0.01   # 0.1633 = sqrt(2 / (3 * 5 * 5))
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+
+
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "conv9"
+  bottom: "label"
+  top: "loss"
+}
+
+
+
