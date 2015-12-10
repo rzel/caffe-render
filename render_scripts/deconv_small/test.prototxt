@@ -21,7 +21,7 @@ layer {
     new_height: 72
     new_width: 72
     crop_size: 72
-    # shuffle: true
+    shuffle: true
 
   }
 }
