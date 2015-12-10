@@ -39,6 +39,9 @@ for i in range(1):
 			break
 		lbl = test_list[id].split(' ')[1]
 		fname = test_list[id].split(' ')[0]
+
+		lbl_set = lbl.split('/')
+		imgname = result_folder + '/' + lbl_set[-2] + '_' + lbl_set[-1]
 		
 		timg = out['conv9'][j]
 		img = np.zeros((height, width, chan)) 
@@ -48,7 +51,7 @@ for i in range(1):
 		img = img * 127 + 104
 		img = np.uint8(img)
 
-		imgname = result_folder + lbl
+		# imgname = result_folder + lbl
 		print imgname
 
 		cv2.imwrite(imgname, img)
