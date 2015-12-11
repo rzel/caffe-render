@@ -3,7 +3,7 @@ display: 5
 average_loss: 20
 lr_policy: "fixed"
 # lr for unnormalized softmax -- see train_val definition
-base_lr: 1e-9
+base_lr: 1e-10
 # high momentum
 momentum: 0.99
 # no gradient accumulation
@@ -11,7 +11,7 @@ iter_size: 1
 max_iter: 80000
 weight_decay: 0.0005
 snapshot: 5000
-snapshot_prefix: "/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd_bn/train"
+snapshot_prefix: "/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd_bn2/train"
 # solver_mode: CPU
 
 
