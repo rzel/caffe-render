@@ -1,0 +1,5 @@
+(1) momentum = 0.99 好像比0.9好些
+(2) gaussian = 0.01 不work
+
+
+(1) try BN, try adam with momentum = 0.99
