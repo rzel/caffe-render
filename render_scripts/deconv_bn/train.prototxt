@@ -5,13 +5,13 @@ layer {
   top: "data"
   top: "label"
   include {
-    phase: TEST
+    phase: TRAIN
   }
 # mean pixel / channel-wise mean instead of mean image
   transform_param {
     crop_size: 72
     mean_value: 104
-    # mirror: true
+    mirror: true
   }
   image_data_param {
     # root_folder: "/nfs.yoda/xiaolonw/gan_render/data/"
@@ -54,16 +54,25 @@ layer {
   }
 }
 
+
+
+layer {
+  name: "bn1"
+  type: "BatchNorm"
+  bottom: "conv1"
+  top: "bn1"
+}
+
 layer {
   name: "relu1"
   type: "ReLU"
-  bottom: "conv1"
-  top: "conv1"
+  bottom: "bn1"
+  top: "bn1"
 }
 layer {
   name: "conv2"
   type: "Convolution"
-  bottom: "conv1"
+  bottom: "bn1"
   top: "conv2"
   param {
     lr_mult: 1
@@ -88,16 +97,24 @@ layer {
     }
   }
 }
+
+layer {
+  name: "bn2"
+  type: "BatchNorm"
+  bottom: "conv2"
+  top: "bn2"
+}
+
 layer {
   name: "relu2"
   type: "ReLU"
-  bottom: "conv2"
-  top: "conv2"
+  bottom: "bn2"
+  top: "bn2"
 }
 layer {
   name: "conv3"
   type: "Convolution"
-  bottom: "conv2"
+  bottom: "bn2"
   top: "conv3"
   param {
     lr_mult: 1
@@ -121,16 +138,25 @@ layer {
     }
   }
 }
+
+layer {
+  name: "bn3"
+  type: "BatchNorm"
+  bottom: "conv3"
+  top: "bn3"
+}
+
+
 layer {
   name: "relu3"
   type: "ReLU"
-  bottom: "conv3"
-  top: "conv3"
+  bottom: "bn3"
+  top: "bn3"
 }
 layer {
   name: "conv4"
   type: "Convolution"
-  bottom: "conv3"
+  bottom: "bn3"
   top: "conv4"
   param {
     lr_mult: 1
@@ -154,16 +180,24 @@ layer {
     }
   }
 }
+
+layer {
+  name: "bn4"
+  type: "BatchNorm"
+  bottom: "conv4"
+  top: "bn4"
+}
+
 layer {
   name: "relu4"
   type: "ReLU"
-  bottom: "conv4"
-  top: "conv4"
+  bottom: "bn4"
+  top: "bn4"
 }
 layer {
   name: "pool4"
   type: "Pooling"
-  bottom: "conv4"
+  bottom: "bn4"
   top: "pool4"
   pooling_param {
     pool: MAX
@@ -171,22 +205,11 @@ layer {
     stride: 2
   }
 }
-layer {
-  name: "norm4"
-  type: "LRN"
-  bottom: "pool4"
-  top: "norm4"
-  lrn_param {
-    local_size: 5
-    alpha: 0.0001
-    beta: 0.75
-  }
-}
 
 layer {
   name: "conv5"
   type: "Convolution"
-  bottom: "norm4"
+  bottom: "pool4"
   top: "conv5"
   param {
     lr_mult: 1
@@ -210,11 +233,20 @@ layer {
     }
   }
 }
+
+
+layer {
+  name: "bn5"
+  type: "BatchNorm"
+  bottom: "conv5"
+  top: "bn5"
+}
+
 layer {
   name: "relu5"
   type: "PReLU"
-  bottom: "conv5"
-  top: "conv5"
+  bottom: "bn5"
+  top: "bn5"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -224,7 +256,7 @@ layer {
 layer {
   name: "upsample5"
   type: "Deconvolution"
-  bottom: "conv5"
+  bottom: "bn5"
   top: "upsample5"
   param {
     lr_mult: 0
@@ -266,11 +298,21 @@ layer {
     }
   }
 }
+
+
+layer {
+  name: "bn6"
+  type: "BatchNorm"
+  bottom: "conv6"
+  top: "bn6"
+}
+
+
 layer {
   name: "relu6"
   type: "PReLU"
-  bottom: "conv6"
-  top: "conv6"
+  bottom: "bn6"
+  top: "bn6"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -280,7 +322,7 @@ layer {
 layer {
   name: "conv7"
   type: "Convolution"
-  bottom: "conv6"
+  bottom: "bn6"
   top: "conv7"
   param {
     lr_mult: 1
@@ -304,11 +346,21 @@ layer {
     }
   }
 }
+
+
+layer {
+  name: "bn7"
+  type: "BatchNorm"
+  bottom: "conv7"
+  top: "bn7"
+}
+
+
 layer {
   name: "relu7"
   type: "PReLU"
-  bottom: "conv7"
-  top: "conv7"
+  bottom: "bn7"
+  top: "bn7"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -320,7 +372,7 @@ layer {
 layer {
   name: "upsample7"
   type: "Deconvolution"
-  bottom: "conv7"
+  bottom: "bn7"
   top: "upsample7"
   param {
     lr_mult: 0
@@ -363,11 +415,21 @@ layer {
     }
   }
 }
+
+
+layer {
+  name: "bn8"
+  type: "BatchNorm"
+  bottom: "conv8"
+  top: "bn8"
+}
+
+
 layer {
   name: "relu8"
   type: "PReLU"
-  bottom: "conv8"
-  top: "conv8"
+  bottom: "bn8"
+  top: "bn8"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -379,7 +441,7 @@ layer {
 layer {
   name: "conv9"
   type: "Convolution"
-  bottom: "conv8"
+  bottom: "bn8"
   top: "conv9"
   param {
     lr_mult: 1
@@ -404,5 +466,15 @@ layer {
     }
   }
 }
+
+
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "conv9"
+  bottom: "label"
+  top: "loss"
+}
+
 
 
