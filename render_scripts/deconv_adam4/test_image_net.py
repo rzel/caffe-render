@@ -58,7 +58,7 @@ for i in range(1):
 		imori = cv2.imread(source_lbl)
 		cv2.imwrite(target_lbl, imori)
 
-		f = fopen(source_fname, 'rb');
+		f = open(source_fname, 'rb');
 		normi = np.zeros((height, width, chan))
 		for c in range(chan):
 			for h in range(height):
