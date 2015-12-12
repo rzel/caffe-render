@@ -4,6 +4,8 @@ import cv2
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples
 import sys
 import struct
+from subprocess import call
+
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
@@ -50,7 +52,7 @@ for i in range(1):
 		
 		target_fname = imgname + '_ori.jpg'
 		cmd = 'cp ' + source_fname + ' ' + target_fname
-		system(cmd)
+		call(cmd)
 
 		target_lbl = imgname + '_norm.jpg'
 		f = fopen(source_lbl, 'rb');
