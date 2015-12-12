@@ -53,8 +53,10 @@ for i in range(1):
 		target_lbl = imgname + '_norm.jpg'		
 		target_fname = imgname + '_ori.jpg'
 
-		cmd = 'cp ' + source_lbl + ' ' + target_lbl
-		call(cmd) 
+		# cmd = 'cp ' + source_lbl + ' ' + target_lbl
+		# call(cmd) 
+		imori = cv2.imread(source_lbl)
+		cv2.imwrite(target_lbl, imori)
 
 		f = fopen(source_fname, 'rb');
 		normi = np.zeros((height, width, chan))
