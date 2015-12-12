@@ -12,8 +12,8 @@ result_folder = '/nfs.yoda/xiaolonw/gan_render/results/'
 
 caffe.set_device(0)
 caffe.set_mode_gpu()
-net = caffe.Net('/nfs/hn46/xiaolonw/render_cnncode/caffe-render/render_scripts/deconv_small/test.prototxt',
-                '/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd/train_iter_30000.caffemodel',
+net = caffe.Net('test.prototxt',
+                '/nfs.yoda/xiaolonw/gan_render/models/deconv_sgd_bn2/train_iter_40000.caffemodel',
                 caffe.TEST)
 
 

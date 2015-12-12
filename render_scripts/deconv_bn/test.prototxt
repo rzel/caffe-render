@@ -11,17 +11,16 @@ layer {
   transform_param {
     crop_size: 72
     mean_value: 104
-    # mirror: true
   }
   image_data_param {
     # root_folder: "/nfs.yoda/xiaolonw/gan_render/data/"
     root_folder: "/scratch/xiaolonw/render_data/"
     source: "/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist.txt"
-    batch_size: 128
+    batch_size: 28
     new_height: 72
     new_width: 72
     crop_size: 72
-    # shuffle: true
+    shuffle: true
 
   }
 }
