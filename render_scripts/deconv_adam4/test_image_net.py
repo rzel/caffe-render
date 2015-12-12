@@ -49,15 +49,16 @@ for i in range(1):
 
 		lbl_set = lbl.split('/')
 		imgname = result_folder + '/' + lbl_set[-2] + '_' + lbl_set[-1]
-		
+
+		target_lbl = imgname + '_norm.jpg'		
 		target_fname = imgname + '_ori.jpg'
 		cmd = 'cp ' + source_fname + ' ' + target_fname
-		print cmd
 		call(cmd)
 
-		target_lbl = imgname + '_norm.jpg'
-		f = fopen(source_lbl, 'rb');
+		cmd = 'cp ' + source_lbl + ' ' + target_lbl
+		call(cmd)
 
+		f = fopen(source_fname, 'rb');
 		normi = np.zeros((height, width, chan))
 		for c in range(chan):
 			for h in range(height):
@@ -67,7 +68,7 @@ for i in range(1):
 
 		fclose(f);
 		normi = np.uint8(normi)
-		cv2.imwrite(target_lbl, normi)		
+		cv2.imwrite(target_fname, normi)		
 
 		
 		timg = out['conv9'][j]
