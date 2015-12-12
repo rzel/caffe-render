@@ -54,7 +54,7 @@ for i in range(1):
 		target_fname = imgname + '_ori.jpg'
 
 		cmd = 'cp ' + source_lbl + ' ' + target_lbl
-		call(cmd)
+		call(cmd) 
 
 		f = fopen(source_fname, 'rb');
 		normi = np.zeros((height, width, chan))
