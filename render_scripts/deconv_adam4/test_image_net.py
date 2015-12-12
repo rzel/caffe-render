@@ -63,7 +63,8 @@ for i in range(1):
 		for c in range(chan):
 			for h in range(height):
 				for w in range(width):
-					normi[h,w,c] =  struct.unpack('f', f.read(4))(0)
+					(x, ) =  struct.unpack('f', f.read(4))
+					normi[h,w,c] = x
 
 
 		fclose(f);
