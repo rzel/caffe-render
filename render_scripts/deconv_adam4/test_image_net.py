@@ -52,6 +52,7 @@ for i in range(1):
 		
 		target_fname = imgname + '_ori.jpg'
 		cmd = 'cp ' + source_fname + ' ' + target_fname
+		print cmd
 		call(cmd)
 
 		target_lbl = imgname + '_norm.jpg'
