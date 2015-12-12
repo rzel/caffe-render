@@ -3,12 +3,14 @@ import cv2
 # Make sure that caffe is on the python path:
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples
 import sys
+import struct
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 
-test_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist.txt'
+test_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist_rand.txt'
 result_folder = '/nfs.yoda/xiaolonw/gan_render/results/'
+source_folder = '/nfs.yoda/xiaolonw/gan_render/data/'
 
 caffe.set_device(0)
 caffe.set_mode_gpu()
@@ -40,8 +42,30 @@ for i in range(1):
 		lbl = test_list[id].split(' ')[1]
 		fname = test_list[id].split(' ')[0]
 
+		source_lbl = source_folder + lbl
+		source_fname = source_folder + fname
+
 		lbl_set = lbl.split('/')
 		imgname = result_folder + '/' + lbl_set[-2] + '_' + lbl_set[-1]
+		
+		target_fname = imgname + '_ori.jpg'
+		cmd = 'cp ' + source_fname + ' ' + target_fname
+		system(cmd)
+
+		target_lbl = imgname + '_norm.jpg'
+		f = fopen(source_lbl, 'rb');
+
+		normi = np.zeros((height, width, chan))
+		for c in range(chan):
+			for h in range(height):
+				for w in range(width):
+					normi[h,w,c] =  struct.unpack('f', f.read(4))
+
+
+		fclose(f);
+		normi = np.uint8(normi)
+		cv2.imwrite(target_lbl, normi)		
+
 		
 		timg = out['conv9'][j]
 		img = np.zeros((height, width, chan)) 
