@@ -14,7 +14,7 @@ test_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/testlist_temp.tx
 result_file = 'test_results.txt'
 # train_result_file = 'train_results.txt' 
 
-caffe.set_device(5)
+caffe.set_device(3)
 caffe.set_mode_gpu()
 net = caffe.Net('/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_deploy_FC7.prototxt',
                 '/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_iter_300000.caffemodel',
@@ -44,7 +44,7 @@ for i in range(batch_count):
 		if id >= batch_count: 
 			break
 		cnt = cnt + 1
-		
+
 		fname = test_list[id]
 		fname = jpgfoldr + fname 
 		if j == 1 :
