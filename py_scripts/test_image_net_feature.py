@@ -42,7 +42,7 @@ for i in range(batch_count):
 	cnt = 0
 	for j in range(batch_size):
 		id = i * batch_size + j
-		if id >= batch_count: 
+		if id >= data_counts: 
 			break
 		cnt = cnt + 1
 
