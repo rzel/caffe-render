@@ -64,7 +64,7 @@ for i in range(1):
 			for h in range(height):
 				for w in range(width):
 					(x, ) =  struct.unpack('f', f.read(4))
-					normi[h,w,c] = x
+					normi[h,w,2 - c] = x
 		f.close()
 		normi = np.uint8(normi)
 		cv2.imwrite(target_fname, normi)		
