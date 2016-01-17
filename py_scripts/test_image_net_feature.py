@@ -37,9 +37,14 @@ batch_count = int(np.ceil(data_counts * 1.0 / batch_size))
 accuracy = 0
 f = open(result_file, 'w')
 for i in range(batch_count):
-	fnames = [];
+	fnames = []
+	cnt = 0
 	for j in range(batch_size):
 		id = i * batch_size + j
+		if id >= batch_count: 
+			break
+		cnt = cnt + 1
+		
 		fname = test_list[id]
 		fname = jpgfoldr + fname 
 		if j == 1 :
@@ -47,10 +52,10 @@ for i in range(batch_count):
 
 		fnames.append(fname) 
 		net.blobs['data'].data[...][j] = transformer.preprocess('data', caffe.io.load_image(fname))
-		
+
 	out = net.forward()
 
-	for j in range(batch_size):
+	for j in range(cnt):
 		props = out['fc7'][j]
 		f.write(fnames[j])
 		for k in range(len(props)):
