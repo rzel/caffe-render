@@ -60,7 +60,7 @@ for i in range(batch_count):
 		props = out['fc7'][j]
 		f.write(fnames[j])
 		for k in range(len(props)):
-			f.write('{0:  .6f}'.format(props[k]))
+			f.write('{} {0: .6f}'.format(props[k]))
 		f.write('\n')
 
 f.close()
