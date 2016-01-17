@@ -11,7 +11,7 @@ import caffe
 jpgfoldr = '/nfs/hn46/xiaolonw/render_cnncode/results/'
 test_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/testlist_temp.txt'
 # train_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist_rand.txt'
-result_file = 'test_results.txt'
+result_file = '/nfs.yoda/xiaolonw/gan_render/testfc_results.txt'
 # train_result_file = 'train_results.txt' 
 
 caffe.set_device(3)
