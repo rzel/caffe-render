@@ -14,7 +14,7 @@ test_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist_temp.t
 result_file = '/nfs.yoda/xiaolonw/gan_render/trainfc_results.txt'
 # train_result_file = 'train_results.txt' 
 
-caffe.set_device(3)
+caffe.set_device(2)
 caffe.set_mode_gpu()
 net = caffe.Net('/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_deploy_FC7.prototxt',
                 '/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_iter_300000.caffemodel',
