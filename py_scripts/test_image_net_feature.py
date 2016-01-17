@@ -32,7 +32,8 @@ data_counts = len(test_list)
 batch_size = net.blobs['data'].data.shape[0]
 batch_count = int(np.ceil(data_counts * 1.0 / batch_size))
 
-
+print(batch_size)
+print(batch_count)
 
 accuracy = 0
 f = open(result_file, 'w')
