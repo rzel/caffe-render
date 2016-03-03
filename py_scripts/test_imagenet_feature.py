@@ -34,6 +34,8 @@ data_counts = len(test_list)
 batch_size = net.blobs['data'].data.shape[0]
 batch_count = int(np.ceil(data_counts * 1.0 / batch_size))
 
+lbls = np.zeros(batch_size)
+
 print(batch_size)
 print(batch_count)
 
@@ -49,6 +51,7 @@ for i in range(batch_count):
 		cnt = cnt + 1
 
 		lbl = int(test_list[id].split(' ')[2])
+		lbls[j] = lbl
 		fname = test_list[id].split(' ')[0]
 
 		fname = jpgfoldr + fname 
@@ -62,7 +65,7 @@ for i in range(batch_count):
 
 	for j in range(cnt):
 		props = out['fc7'][j]
-		f.write('{0:d}'.format(lbl))
+		f.write('{0:d}'.format(lbls[j]))
 		for k in range(len(props)):
 			f.write(' ')
 			f.write('{0:d}'.format(k + 1))
