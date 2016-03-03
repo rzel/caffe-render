@@ -14,7 +14,7 @@ test_listfile = '/nfs/hn38/users/xiaolonw/sunrgbd/SUNRGBDtoolbox/testlist2.txt'
 result_file = 'feature_rgb_test.txt'
 # train_result_file = 'train_results.txt' 
 
-caffe.set_device(3)
+caffe.set_device(1)
 caffe.set_mode_gpu()
 net = caffe.Net('/nfs.yoda/xiaolonw/gan_render/imagenet_model/deploy_fc7.prototxt',
                 '/nfs.yoda/xiaolonw/gan_render/imagenet_model/bvlc_reference_caffenet.caffemodel',
