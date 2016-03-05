@@ -65,6 +65,7 @@ for i in range(batch_count):
 
 	for j in range(cnt):
 		props = out['bn4'][j]
+		props = np.reshape(props, np.size(props))
 		f.write('{0:d}'.format(int(lbls[j]) ))
 		for k in range(len(props)):
 			f.write(' ')
