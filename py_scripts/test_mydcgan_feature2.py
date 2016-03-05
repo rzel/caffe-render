@@ -16,7 +16,7 @@ result_file = 'feature_rgb_train.txt'
 
 caffe.set_device(1)
 caffe.set_mode_gpu()
-net = caffe.Net('/nfs/hn46/xiaolonw/render_cnncode/caffe-render/py_scripts/dcgan_rgb2/test_pool.prototxt',
+net = caffe.Net('/nfs/hn46/xiaolonw/render_cnncode/caffe-render/py_scripts/dcgan_rgb2/test.prototxt',
                 '/nfs.yoda/xiaolonw/fast_rcnn/models/dcgan_rgb2/fast_rcnn_zero.caffemodel',
                 caffe.TEST)
 
