@@ -64,7 +64,7 @@ for i in range(batch_count):
 	out = net.forward()
 
 	for j in range(cnt):
-		props = out['fc7'][j]
+		props = out['bn4'][j]
 		f.write('{0:d}'.format(int(lbls[j]) ))
 		for k in range(len(props)):
 			f.write(' ')
