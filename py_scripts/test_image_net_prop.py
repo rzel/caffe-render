@@ -14,7 +14,7 @@ test_listfile = '//nfs/hn38/users/xiaolonw/cmp_results/dcgan_normal_72_train_3dn
 result_file = '/nfs/hn38/users/xiaolonw/cmp_results/dcgan_normal_72_train_3dnormal_joint_s2/props.txt'
 # train_result_file = 'train_results.txt' 
 
-caffe.set_device(3)
+caffe.set_device(1)
 caffe.set_mode_gpu()
 net = caffe.Net('/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_deploy.prototxt',
                 '/nfs.yoda/xiaolonw/gan_render/PLACES/places205CNN_iter_300000.caffemodel',
