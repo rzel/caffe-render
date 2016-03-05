@@ -8,10 +8,10 @@ sys.path.insert(0, caffe_root + 'python')
 import caffe
 
 
-jpgfoldr = '/nfs/hn38/users/xiaolonw/cmp_results/dcgan_direct/'
-test_listfile = '/nfs/hn38/users/xiaolonw/cmp_results/dcgan_direct/test.txt'
+jpgfoldr = '/nfs/hn38/users/xiaolonw/cmp_results/train_3dnormal_jointall_ori/'
+test_listfile = '/nfs/hn38/users/xiaolonw/cmp_results/train_3dnormal_jointall_ori/test.txt'
 # train_listfile = '/nfs.yoda/xiaolonw/gan_render/genNormalCodeReg/trainlist_rand.txt'
-result_file = '/nfs/hn38/users/xiaolonw/cmp_results/dcgan_direct/props.txt'
+result_file = '/nfs/hn38/users/xiaolonw/cmp_results/train_3dnormal_jointall_ori/props.txt'
 # train_result_file = 'train_results.txt' 
 
 caffe.set_device(1)
