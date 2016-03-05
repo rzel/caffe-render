@@ -11,8 +11,8 @@ import caffe
 jpgfoldr = '/nfs/hn38/users/xiaolonw/sunrgbd/data/'
 
 test_listfile = '/nfs/hn38/users/xiaolonw/sunrgbd/SUNRGBDtoolbox/trainlist2.txt'
-result_file = 'feature_norm_train.txt'
-# result_file = 'feature_rgb_test.txt'
+# result_file = 'feature_norm_train.txt'
+result_file = 'feature_rgb_train.txt'
 
 caffe.set_device(1)
 caffe.set_mode_gpu()
@@ -52,7 +52,7 @@ for i in range(batch_count):
 
 		lbl = int(test_list[id].split(' ')[2])
 		lbls[j] = lbl
-		fname = test_list[id].split(' ')[1]
+		fname = test_list[id].split(' ')[0]
 
 		fname = jpgfoldr + fname 
 		if j == 1 :
