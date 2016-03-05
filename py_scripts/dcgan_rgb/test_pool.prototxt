@@ -2,8 +2,8 @@ name: "CaffeNet"
 input: "data"
 input_dim: 200
 input_dim: 3
-input_dim: 227
-input_dim: 227
+input_dim: 64
+input_dim: 64
 
 
 layer {
